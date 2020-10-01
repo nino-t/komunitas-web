@@ -3,13 +3,17 @@
 /** @type {import('@adonisjs/lucid/src/Schema')} */
 const Schema = use('Schema')
 
-class UserSchema extends Schema {
+class AgendaSchema extends Schema {
   up () {
-    this.create('users', (table) => {
+    this.create('agenda', (table) => {
       table.increments()
+      table.integer('community_id').unsigned()
       table.string('name', 254).notNullable()
-      table.string('email', 254).notNullable().unique()
-      table.string('password', 60).notNullable()
+      table.text('description').nullable()
+      table.timestamp('start_at').notNullable()
+      table.timestamp('end_at').notNullable()
+      table.string('location', 254).notNullable()
+      table.string('thumbnail', 254).notNullable()
       table.timestamp('created_at').defaultTo(this.fn.now())
       table.timestamp('updated_at').defaultTo(this.fn.now())
       table.timestamp('deleted_at').nullable()
@@ -18,8 +22,8 @@ class UserSchema extends Schema {
   }
 
   down () {
-    this.drop('users')
+    this.drop('agenda')
   }
 }
 
-module.exports = UserSchema
+module.exports = AgendaSchema
