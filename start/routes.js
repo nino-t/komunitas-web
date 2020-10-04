@@ -17,3 +17,12 @@
 const Route = use('Route')
 
 Route.on('/').render('welcome')
+
+Route
+  .group(() => {    
+    Route.get('/ping', 'PingController.index').as('client.ping.index')
+    Route.get('/commnunites/categories', 'CommunityCategoryController.index').as('client.community-category.index')
+    Route.get('/commnunites/categories/:slug', 'CommunityCategoryController.findBySlug').as('client.community-category.findBySlug')
+  })
+  .prefix('api/v1')
+  .namespace('Client')
